@@ -30,7 +30,7 @@ class CreateBillJob
     if failed_arguments.present?
       failed_arguments = failed_arguments.sort_by {|x| x['args'][1]}
       end_msg += "\n\n실패한 유저ID\n"
-      end_msg = failed_arguments.reduce(msg) {|msg, x| msg + "\n*#{x['args'][1]}* : #{x['err']}"}
+      end_msg = failed_arguments.reduce(end_msg) {|msg, x| msg + "\n*#{x['args'][0]}* : #{x['err']}"}
     end
 
     Rails.logger.info "===슬랙 종료 메세지 보내기==="

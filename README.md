@@ -16,7 +16,7 @@ config/initializers/sidekiq-batch.rb
 ### 직접 실행 해보려면 
 1. git clone
 2. bundle install
-3. Rdb, 레디스 서버 켜기
+3. RDB, 레디스 서버 켜기
 ```
 mysql.server start
 redis-server
@@ -42,4 +42,22 @@ rails s
 localhost:3000/sidekiq 방문
 ```
 
+![start_msg](./public/start_msg.png)
+![end_msg](./public/end_msg.png)
+
 ### batch-job 사용하기
+
+1. batch로 실행하고 싶은 job 클래스에 다음과 같은 클래스 메소드를 정의한다
+```
+  send_start_message(description, total_count)
+  send_end_message(description, success_count, failed_arguments)
+```
+
+2. batchjob 호출하기
+```
+  batch_job = BatchJob.new('CreateBillJob', @month, 'create_bill')
+  batch_job.push_jobs(User, 1000) do |users|
+    # job_arguments
+    users.map { |user| [user.id, @month] }
+  end
+```
