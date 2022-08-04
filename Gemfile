@@ -73,3 +73,4 @@ end
 
 gem 'sidekiq'
 gem 'sidekiq-batch'
+gem 'faker'
