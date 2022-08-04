@@ -7,6 +7,8 @@ class CreateBillJob
   sidekiq_options :retry => 3
 
   def perform(user_id, month)
+    # 에러 테스트를 원한다면 아래 주석을 해제하고 실행해 보십시오.
+    raise 'sample error :)' if user_id % 30 == 0
     user = User.find(user_id)
     return if user.bills.where(month: month).any? 
     user.bills.create!(month:  month, amount: rand(10000..100000), description: Faker::Hobby.activity)
