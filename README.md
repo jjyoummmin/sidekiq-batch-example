@@ -18,3 +18,6 @@ gem 'sidekiq-batch'
 4. rails db:create / rails db:migrate / rails db:seed
 5. bundle exec sidekiq
 6. rails c 에서 서비스 호출해 보세영~
+```
+CreateBillService.new('2022-08').create
+```
